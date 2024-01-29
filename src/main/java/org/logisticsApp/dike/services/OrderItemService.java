@@ -6,6 +6,6 @@ import org.logisticsApp.dike.dtos.request.OrderItemRequest;
 public interface OrderItemService {
     void placeOrder();
 
-    void placeOrder(OrderItemRequest orderItemRequest, String id);
+    OrderItem placeOrder(OrderItemRequest orderItemRequest, String id);
 
 }

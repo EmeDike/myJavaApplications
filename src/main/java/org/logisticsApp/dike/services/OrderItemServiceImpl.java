@@ -20,12 +20,13 @@ public class OrderItemServiceImpl implements OrderItemService{
     }
 
     @Override
-    public void placeOrder(OrderItemRequest orderItemRequest, String id) {
+    public OrderItem placeOrder(OrderItemRequest orderItemRequest, String id) {
         OrderItem orderItem = new OrderItem();
         orderItem.setType(orderItemRequest.getType());
         orderItem.setNumber(orderItemRequest.getNumber());
         orderItem.setDescription(orderItemRequest.getDescription());
         orderItem.setCustomerid(id);
-        orderItemRepository.save(orderItem);
+
+        return orderItem;
     }
 }

@@ -2,7 +2,9 @@ package org.logisticsApp.dike.services;
 
 import org.logisticsApp.dike.data.model.Customer;
 import org.logisticsApp.dike.data.model.ExtendedUser;
+import org.logisticsApp.dike.data.model.OrderItem;
 import org.logisticsApp.dike.data.repository.CustomerRepository;
+import org.logisticsApp.dike.data.repository.OrderItemRepository;
 import org.logisticsApp.dike.dtos.request.LoginRequest;
 import org.logisticsApp.dike.dtos.request.OrderItemRequest;
 import org.logisticsApp.dike.dtos.request.RegisterRequest;
@@ -20,6 +22,8 @@ public class CustomerServiceImpl implements CustomerService{
     private CustomerRepository customerRepository;
     @Autowired
     private OrderItemService orderItemService;
+    @Autowired
+    private OrderItemRepository orderItemRepository;
     @Override
     public void register(RegisterRequest registerRequest) {
         if (userExist(registerRequest.getUsername()))throw new UserExistException(registerRequest.getUsername()+ "already exist");
@@ -45,9 +49,18 @@ public class CustomerServiceImpl implements CustomerService{
     @Override
     public void placeOrder(OrderItemRequest orderItemRequest) {
         Customer customer = customerRepository.findCustomerByUsername(orderItemRequest.getCustomerName());
+        OrderItem orderItem = null;
         if(customer != null){
-            orderItemService.placeOrder(orderItemRequest, customer.getId());
+            orderItem = orderItemService.placeOrder(orderItemRequest, customer.getId());
         }
+
+        if (customer == null) {
+            throw new RuntimeException("customer not found");
+        }
+
+        orderItemRepository.save(orderItem);
+
+
 
     }
 

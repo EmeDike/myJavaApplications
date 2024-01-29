@@ -66,8 +66,9 @@ class CustomerServiceImplTest {
         OrderItemRequest orderItemRequest = new OrderItemRequest();
         orderItemRequest.setType("food");
         orderItemRequest.setDescription("coke");
-        orderItemRequest.setCustomerName("Dike");
+        orderItemRequest.setCustomerName("dike");
         customerService.placeOrder(orderItemRequest);
+        System.out.println(orderItemRepository.count());
         assertEquals(1,orderItemRepository.count());
     }
     @Test
@@ -82,11 +83,11 @@ class CustomerServiceImplTest {
         OrderItemRequest orderItemRequest = new OrderItemRequest();
         orderItemRequest.setType("food");
         orderItemRequest.setDescription("coke");
-        orderItemRequest.setCustomerName("Dike");
+        orderItemRequest.setCustomerName("dike");
         customerService.placeOrder(orderItemRequest);
         orderItemRequest.setType("cloth");
         orderItemRequest.setDescription("pant");
-        orderItemRequest.setCustomerName("Dike");
+        orderItemRequest.setCustomerName("dike");
         customerService.placeOrder(orderItemRequest);
         assertEquals(2,orderItemRepository.count());
 
@@ -103,7 +104,7 @@ class CustomerServiceImplTest {
         OrderItemRequest orderItemRequest = new OrderItemRequest();
         orderItemRequest.setType("food");
         orderItemRequest.setDescription("coke");
-        orderItemRequest.setCustomerName("Dike");
+        orderItemRequest.setCustomerName("dike");
         customerService.placeOrder(orderItemRequest);
         ExtendedUser extendedUser = new ExtendedUser();
         extendedUser.setName("divine");
@@ -111,7 +112,7 @@ class CustomerServiceImplTest {
         extendedUser.setCity("yaba");
         extendedUser.setState("lagos");
         extendedUser.setCountry("nigeria");
-        assertEquals(2,orderItemRepository.count());
+        assertEquals(1,orderItemRepository.count());
     }
 
 }
